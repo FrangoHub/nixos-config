@@ -5,7 +5,11 @@
     # i.e. nixos-24.11
     # Use `nix flake update` to update the flake to the latest revision of the chosen release channel.
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
-  };
+    mac-style-plymouth = {
+	url = "github:SergioRibera/s4rchiso-plymouth-theme";
+	inputs.nixpkgs.follows = "nixpkgs";
+	};  
+};
 
   outputs = inputs@{ self, nixpkgs, ... }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {

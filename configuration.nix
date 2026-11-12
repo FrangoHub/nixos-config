@@ -2,9 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs,... }:
 
 {
+  nixpkgs.overlays = [
+	inputs.mac-style-plymouth.overlays.default
+	];
   boot = {
     # Kernel
     kernelPackages = pkgs.linuxPackages_latest;
@@ -34,7 +37,8 @@
 
     # Enable "Silent boot"
     plymouth.enable = true;
-    plymouth.theme = "solar";
+    plymouth.theme = "mac-style";
+    plymouth.themePackages = [ pkgs.mac-style-plymouth ];
     consoleLogLevel = 3;
     kernelParams = [
       "quiet"
